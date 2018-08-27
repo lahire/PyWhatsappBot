@@ -18,17 +18,20 @@ app.post('/incoming', (req, res) => {
   const twiml = new MessagingResponse();
   
   request('https://api.duckduckgo.com/?skip_disambig=1&format=json&pretty=1&q='+req.body.Body, function (error, response, body) {
-    console.log('body:', JSON.parse(body)["Abstract"]);
+    body = JSON.parse(body)
+    console.log('body:', body["Abstract"]);
     
-//     if(body["Abstract"] == ""){
-// 	    body["Abstract"]= request["RelatedTopics"][0]["Text"]
-// 	  }
+    if(body["Abstract"] == ""){
+	    body["Abstract"]= request["RelatedTopics"][0]["Text"]
+	  }
     
-    twiml.message("j");
-    
-  });
+    var msg = twiml.message(`*`+body["Heading"]+`*
+
+`+body["Abstract"]);
   res.writeHead(200, {'Content-Type': 'text/xml'});
   res.end(twiml.toString());
+  });
+
 });
 
 
