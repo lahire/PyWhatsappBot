@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.post('/incoming', (req, res) => {
   const twiml = new MessagingResponse();
-  
+  if(req.body.Body!="join ultramarine-tapir"){
   request('https://api.duckduckgo.com/?skip_disambig=1&format=json&pretty=1&q='+req.body.Body, function (error, response, body) {
     body = JSON.parse(body)
     console.log('body:', body["Abstract"]);
@@ -31,7 +31,14 @@ app.post('/incoming', (req, res) => {
   res.writeHead(200, {'Content-Type': 'text/xml'});
   res.end(twiml.toString());
   });
+  }
+  else{
+    var msg = twiml.message(`*Hey 👋*
 
+I am a bot which summarizes WikiPedia pages to help you find quick information, right within WhatsApp.
+
+Try it out - send me anything you want to know about`)
+  }
 });
 
 
