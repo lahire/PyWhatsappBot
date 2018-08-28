@@ -16,6 +16,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.post('/incoming', (req, res) => {
   const twiml = new MessagingResponse();
+  console.log(req.body)
   if(req.body.Body.toLowerCase().trim()!="hi" && req.body.Body.toLowerCase().trim()!="hello" && req.body.Body.toLowerCase().trim()!="test" && req.body.Body.toLowerCase().trim()!="help"){
   request('https://api.duckduckgo.com/?skip_disambig=1&format=json&pretty=1&q='+req.body.Body, function (error, response, body) {
     body = JSON.parse(body)
