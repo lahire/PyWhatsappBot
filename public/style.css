@@ -10,17 +10,15 @@ body {
   margin: 2em;
 }
 
-h1 {
-  font-style: italic;
-  color: #373fff;
-}
+
 
 .bold {
   font-weight: bold;
 }
 
 p {
-  max-width: 600px;
+  max-width: 700px;
+  margin:auto;
 }
 
 form {
