@@ -18,9 +18,16 @@ app.post('/incoming', (req, res) => {
   const twiml = new MessagingResponse();
   console.log(req.body)
   
-  if(req.body.Body.toLowerCase().trim()=="What is your name"){
-    
-  if(req.body.Body.toLowerCase().trim()!="hi" && req.body.Body.toLowerCase().trim()!="hello" && req.body.Body.toLowerCase().trim()!="test" && req.body.Body.toLowerCase().trim()!="help"){
+  if(req.body.Body.toLowerCase().trim()=="what is your name?"){
+    twiml.message('WikiWassapBlog')}
+  if(req.body.Body.toLowerCase().trim()=="what is your quest?"){
+    twiml.message('Buscar esto: https://es.wikipedia.org/wiki/Grial')}
+  if(req.body.Body.toLowerCase().trim()=="what is your favourite color?"){
+    twiml.message('Azul...o era amarillo?')
+    twiml.message('Este artículo puede ser de utilidad: https://es.wikipedia.org/wiki/Hirundo_rustica')
+  }
+  
+  if(req.body.Body.toLowerCase().trim()!="hi" && req.body.Body.toLowerCase().trim()!="hello" && req.body.Body.toLowerCase().trim()!="test" && req.body.Body.toLowerCase().trim()!="help" && req.body.Body.toLowerCase().trim()!="what is your name?" && req.body.Body.toLowerCase().trim()!="what is your quest?" && req.body.Body.toLowerCase().trim()!="what is your favourite colour?"){
   request('https://api.duckduckgo.com/?skip_disambig=1&format=json&pretty=1&q='+req.body.Body, function (error, response, body) {
     body = JSON.parse(body)
     console.log('body:', body["Abstract"]);
@@ -35,16 +42,16 @@ app.post('/incoming', (req, res) => {
   res.end(twiml.toString());
   });
   }
-  else{
+  if(req.body.Body.toLowerCase().trim()=="hi" && req.body.Body.toLowerCase().trim()=="hello" && req.body.Body.toLowerCase().trim()=="test" && req.body.Body.toLowerCase().trim()=="help"){
     var msg = twiml.message(`*HOLA! 👋*
 Soy un bot hecho en node al que le gusta el death metal y wikipedia.
 
 Probamos? mandame cualquier cosa y veo que te devuelvo. Estoy usando la api de duckduckgo para buscar y es la primera vez que uso node asi que no te enojes`)
     res.writeHead(200, {'Content-Type': 'text/xml'});
   res.end(twiml.toString());
-  }
   
-});
+  
+};
 
 app.post('/check', function(req, res) {
   console.log(req.body.Body)
