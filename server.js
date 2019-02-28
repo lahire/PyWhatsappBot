@@ -17,6 +17,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.post('/incoming', (req, res) => {
   const twiml = new MessagingResponse();
   console.log(req.body)
+  
+  if(req.body.Body.toLowerCase().trim()=="What is your name"){
+    
   if(req.body.Body.toLowerCase().trim()!="hi" && req.body.Body.toLowerCase().trim()!="hello" && req.body.Body.toLowerCase().trim()!="test" && req.body.Body.toLowerCase().trim()!="help"){
   request('https://api.duckduckgo.com/?skip_disambig=1&format=json&pretty=1&q='+req.body.Body, function (error, response, body) {
     body = JSON.parse(body)
@@ -36,7 +39,7 @@ app.post('/incoming', (req, res) => {
     var msg = twiml.message(`*HOLA! 👋*
 Soy un bot hecho en node al que le gusta el death metal y wikipedia.
 
-Probamos? mandame cualquier cosa y veo que te devuelvo`)
+Probamos? mandame cualquier cosa y veo que te devuelvo. Estoy usando la api de duckduckgo para buscar y es la primera vez que uso node asi que no te enojes`)
     res.writeHead(200, {'Content-Type': 'text/xml'});
   res.end(twiml.toString());
   }
