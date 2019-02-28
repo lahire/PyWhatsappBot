@@ -34,9 +34,9 @@ app.post('/incoming', (req, res) => {
   });
   }
   else{
-    var msg = twiml.message(`*Hey 👋*
+    var msg = twiml.message(`*HOLA! 👋*
 
-I am a bot which summarizes WikiPedia pages to help you find quick information, right within WhatsApp.
+Aguante el death metal.
 
 Try it out - send me anything you want to know about`)
     res.writeHead(200, {'Content-Type': 'text/xml'});
@@ -56,4 +56,3 @@ app.get('/', function(request, response) {
 var listener = app.listen(process.env.PORT, function() {
   console.log('Your app is listening on port ' + listener.address().port);
 });
-
