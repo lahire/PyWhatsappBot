@@ -26,7 +26,8 @@ app.post('/incoming', (req, res) => {
 	    body["Abstract"]= body["RelatedTopics"][0]["Text"]
 	  }
     
-    var msg = twiml.message(`*`+body["Heading"]+`*` +body["Abstract"] + " La url del arti: " + body["AbstractURL"]);
+    var msg = twiml.message("Esto es lo que encontré sobre " + `*`+body["Heading"]+`*` +`
+    `+ body["Abstract"] + " La url del arti: " + body["AbstractURL"]);
   res.writeHead(200, {'Content-Type': 'text/xml'});
   res.end(twiml.toString());
   });
