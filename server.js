@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 
 
 const accountSid = process.env.SID;
-const authToken = process.env.SID;
+const authToken = process.env.KEY;
 const client = require('twilio')(accountSid, authToken);
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 
@@ -26,19 +26,16 @@ app.post('/incoming', (req, res) => {
 	    body["Abstract"]= body["RelatedTopics"][0]["Text"]
 	  }
     
-    var msg = twiml.message(`*`+body["Heading"]+`*
-
-`+body["Abstract"]);
+    var msg = twiml.message(`*`+body["Heading"]+`*` +body["Abstract"] + " La url del arti: " + body["AbstractURL"]);
   res.writeHead(200, {'Content-Type': 'text/xml'});
   res.end(twiml.toString());
   });
   }
   else{
     var msg = twiml.message(`*HOLA! 👋*
+Soy un bot hecho en node al que le gusta el death metal y wikipedia.
 
-Aguante el death metal.
-
-Try it out - send me anything you want to know about`)
+Probamos? mandame cualquier cosa y veo que te devuelvo`)
     res.writeHead(200, {'Content-Type': 'text/xml'});
   res.end(twiml.toString());
   }
