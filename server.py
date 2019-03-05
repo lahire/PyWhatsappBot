@@ -5,7 +5,12 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello():
-  return "Hello World!"
+  return "Hola Mundo!!"
+
+@app.route("/incoming")
+def incomming():
+  return 'Hola Wassap'
+
 
 if __name__ == "__main__":
   app.run()
