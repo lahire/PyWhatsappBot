@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.post('/incoming', (req, res) => {
   const twiml = new MessagingResponse();
   console.log(req.body)
-  
+//el cuerpo de la request esta en req.body  
   if(req.body.Body.toLowerCase().trim()=="what is your name?"){
     twiml.message('WikiWassapBlog')
     res.writeHead(200, {'Content-Type': 'text/xml'});
