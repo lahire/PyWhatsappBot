@@ -14,6 +14,8 @@ def incomming():
   print('Hola')
   print(dir(request))
   print(request.url)
+  print(request.form)
+  print(request.form.keys())
   return 'Hola Wassap'
 
 
