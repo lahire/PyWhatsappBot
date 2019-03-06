@@ -34,17 +34,25 @@ def wikipedia_lookup(lookup, lang='es'):
   Lookups on wikipedia using the api
   https://es.wikipedia.org/w/api.php?action=help&modules=main
   """
-  SITE='https://es.wikipedia.org/'
+  SITE='https://{0}.wikipedia.org/'.format(lang) #language
   LOOKUP='{0}'.format(lookup).replace(' ','%20') #Reemplazo whitespace por %20
-  WIKIPEDIA_API_LOOKUP="w/api.php?action=query&prop=extracts&exintro&explaintext&titles={0}&format=json".format(LOOKUP)
+  WIKIPEDIA_API_LOOKUP="w/api.php?action=query&prop=extracts&exintro&exchars=175&explaintext&titles={0}&format=json".format(LOOKUP)
   #r = requests.get('https://es.wikipedia.org/w/api.php?action=query&prop=extracts&exintro&titles=Albert%20Einstein&format=json')
-  r = requests.get('{0}{1}{2}'.format(SITE,LOOKUP,WIKIPEDIA_API_LOOKUP))
+  r = requests.get('{0}{1}'.format(SITE,WIKIPEDIA_API_LOOKUP))
   resultado = r.json()
-  pageid=list(a['query']['pages'].values())[0]['pageid']
+  print(resultado)
+  pageid=list(resultado['query']['pages'].values())[0]['pageid']
   extract = resultado['query']['pages'][str(pageid)]['extract']
   title = resultado['query']['pages'][str(pageid)]['title']
   curid='?curid={0}'.format(pageid)
+  url='{0}{1}'.format(SITE,curid)
   
+  MENSAJE = {
+  'es':'*{0}*\n{1}\nMás info acá: {2}'.format(title,extract,url),
+  'en':'*{0}*\n{1}\nMore info here: {2}'.format(title, extract,url)  
+  }
+  print(MENSAJE[lang])
+  return MENSAJE[lang]
   
   
   
@@ -64,7 +72,7 @@ def incoming():
   elif 'help' in cuerpo.lower():
     resp.message(welcome_user('en'))
   else:
-    resp.message('Mensaje')
+    resp.message(wikipedia_lookup(cuerpo, lang='es'))
   return str(resp)
 
 
