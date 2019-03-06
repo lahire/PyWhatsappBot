@@ -32,9 +32,14 @@ def body_process(cuerpo):
 def wikipedia_lookup(lookup, lang='es'):
   """
   Lookups on wikipedia using the api
+  https://es.wikipedia.org/w/api.php?action=help&modules=main
   """
-  WIKIPEDIA_API="api.php?action=query&prop=extracts&exintro&titles=Albert%20Einstein&format=json"
-  r = requests.get('https://es.wikipedia.org/w/api.php?action=query&prop=extracts&exintro&titles=Albert%20Einstein&format=json')
+  SITE='https://es.wikipedia.org/w/'
+  LOOKUP='{0}'.format(lookup).replace(' ','%20') #Reemplazo whitespace por %20
+  WIKIPEDIA_API="api.php?action=query&prop=extracts&exintro&explaintext&titles={0}&format=json".format(LOOKUP)
+  #r = requests.get('https://es.wikipedia.org/w/api.php?action=query&prop=extracts&exintro&titles=Albert%20Einstein&format=json')
+  r = requests.get('{0}{1}{2}'.format(SITE,LOOKUP,WIKIPEDIA_API))
+  
   
   
   
