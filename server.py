@@ -34,14 +34,18 @@ def wikipedia_lookup(lookup, lang='es'):
   Lookups on wikipedia using the api
   https://es.wikipedia.org/w/api.php?action=help&modules=main
   """
-  SITE='https://es.wikipedia.org/w/'
+  SITE='https://es.wikipedia.org/'
   LOOKUP='{0}'.format(lookup).replace(' ','%20') #Reemplazo whitespace por %20
-  WIKIPEDIA_API="api.php?action=query&prop=extracts&exintro&explaintext&titles={0}&format=json".format(LOOKUP)
+  WIKIPEDIA_API_LOOKUP="w/api.php?action=query&prop=extracts&exintro&explaintext&titles={0}&format=json".format(LOOKUP)
   #r = requests.get('https://es.wikipedia.org/w/api.php?action=query&prop=extracts&exintro&titles=Albert%20Einstein&format=json')
-  r = requests.get('{0}{1}{2}'.format(SITE,LOOKUP,WIKIPEDIA_API))
+  r = requests.get('{0}{1}{2}'.format(SITE,LOOKUP,WIKIPEDIA_API_LOOKUP))
   resultado = r.json()
-  extract = resultado['query']['pages'][str(list(a['query']['pages'].values())[0]['pageid'])]['extract']
-  title = resultado['query']['pages'][str(list(a['query']['pages'].values())[0]['pageid'])]['title']
+  pageid=list(a['query']['pages'].values())[0]['pageid']
+  extract = resultado['query']['pages'][str(pageid)]['extract']
+  title = resultado['query']['pages'][str(pageid)]['title']
+  curid='?curid={0}'.format(pageid)
+  
+  
   
   
   
