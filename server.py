@@ -4,6 +4,7 @@ from flask import Flask, request, jsonify
 import requests
 import os
 from twilio.rest import Client
+from twilio.twiml.messaging_response import MessagingResponse
 
 
 
@@ -11,7 +12,8 @@ from twilio.rest import Client
 app = Flask(__name__)
 app.SID = os.environ.get('SID')
 app.KEY = os.environ.get('KEY')
-client 
+client = Client(app.SID,app.KEY)
+
 
 @app.route("/")
 def hello():
@@ -26,7 +28,9 @@ def incomming():
 #  print(request.url)
 #  print(request.form)
 #  print(request.form['Body'])
-  return 'Hola Wassap'
+  resp = MessagingResponse()
+  resp.message("Hola! venis de {0} y lo que escribiste es {1}".format(request.url,request.form['Body']))
+  return str(resp)
 
 
 if __name__ == "__main__":
