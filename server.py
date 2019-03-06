@@ -17,9 +17,17 @@ def welcome_user(lang='es'):
   Welcomes the user
   """
   WELCOME_MESSAGE = {
-  'es': 'Hola! Soy un bot que consulta Wikipedia. Para usarme escribime aglo y te respondo con el artículo! 👉 '
-  'en': "Hello! i'm a bot that searches Wikipedia. To use me, ask me "}
+  'es': 'Hola! Soy un bot que consulta Wikipedia. Para usarme escribime aglo y te respondo con el artículo! 👉 ',
+  'en': "Hello! i'm a bot that searchs Wikipedia. To use me, write to me something that you want to look for in Wikipedia and i shall give it to you! :D"
+  }
+  return WELCOME_MESSAGE[lang]
 
+def body_process(cuerpo):
+  """
+  Tries to understand the body of the message. At least, 
+  
+  
+  """
 
 @app.route("/")
 def hello():
@@ -34,8 +42,14 @@ def incomming():
 #  print(request.url)
 #  print(request.form)
 #  print(request.form['Body'])
+  cuerpo = request.form['Body']
   resp = MessagingResponse()
-  resp.message("Hola! venis de {0} y lo que escribiste es {1}".format(request.url,request.form['Body']))
+  if 'ayuda' in cuerpo.lower():
+    resp.message(welcome_user('es'))
+  elif 'help' in cuerpo.lower():
+    resp.message(welcome_user('en'))
+  else:
+    resp.message('Mensaje')
   return str(resp)
 
 
