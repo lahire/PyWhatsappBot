@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 # WikiBOT
+VERSION=0.1
 
 from flask import Flask, request, jsonify
 import requests
@@ -34,25 +35,26 @@ def wikipedia_lookup(lookup, lang='es'):
   Lookups on wikipedia using the api
   https://es.wikipedia.org/w/api.php?action=help&modules=main
   """
-  SITE='https://{0}.wikipedia.org/'.format(lang) #language
-  LOOKUP='{0}'.format(lookup).replace(' ','%20') #Reemplazo whitespace por %20
-  WIKIPEDIA_API_LOOKUP="w/api.php?action=query&prop=extracts&exintro&exchars=175&explaintext&titles={0}&format=json".format(LOOKUP)
+  SITE='https://{0}.wikipedia.org/'.format(lang) #Sitio de donde usar la API. lang es el lenguaje de la wiki
+  EXCHARS=200 #limite de chars en la desc, muy largo y wassap no me deja
+  LOOKUP='{0}'.format(lookup).replace(' ','%20') #Reemplazo whitespace por %20 Para las cosas que tienen espacio en el nombre
+  WIKIPEDIA_API_LOOKUP="w/api.php?action=query&prop=extracts&exintro&exchars={1}&explaintext&titles={0}&format=json".format(LOOKUP,EXCHARS) #La api en cuestion. ver paramentros en la doc
   #r = requests.get('https://es.wikipedia.org/w/api.php?action=query&prop=extracts&exintro&titles=Albert%20Einstein&format=json')
-  r = requests.get('{0}{1}'.format(SITE,WIKIPEDIA_API_LOOKUP))
-  resultado = r.json()
-  print(resultado)
-  pageid=list(resultado['query']['pages'].values())[0]['pageid']
-  extract = resultado['query']['pages'][str(pageid)]['extract']
-  title = resultado['query']['pages'][str(pageid)]['title']
-  curid='?curid={0}'.format(pageid)
-  url='{0}{1}'.format(SITE,curid)
+  r = requests.get('{0}{1}'.format(SITE,WIKIPEDIA_API_LOOKUP)) #hago el POST
+  resultado = r.json() #paso a json el POST
+  print(resultado) #console.log
+  pageid=list(resultado['query']['pages'].values())[0]['pageid'] #consigo el pageid
+  extract = resultado['query']['pages'][str(pageid)]['extract'] #consigo el "extracto" del arti
+  title = resultado['query']['pages'][str(pageid)]['title'] #consigo el título
+  curid='?curid={0}'.format(pageid) #consigo el id de la pagina
+  url='{0}{1}'.format(SITE,curid) #construyo la URL del arti usando el curid
   
   MENSAJE = {
-  'es':'*{0}*\n{1}\nMás info acá: {2}'.format(title,extract,url),
+  'es':'*{0}*\n{1}\nMás info acá: {2}'.format(title,extract,url), 
   'en':'*{0}*\n{1}\nMore info here: {2}'.format(title, extract,url)  
-  }
+  } #el mensaje que se construye. Se podrian agregar más idiomas o modificar desde acá
   print(MENSAJE[lang])
-  return MENSAJE[lang]
+  return MENSAJE[lang] #devuelvo el mensaje para escribir de vuelta
   
   
   
