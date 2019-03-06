@@ -39,6 +39,9 @@ def wikipedia_lookup(lookup, lang='es'):
   WIKIPEDIA_API="api.php?action=query&prop=extracts&exintro&explaintext&titles={0}&format=json".format(LOOKUP)
   #r = requests.get('https://es.wikipedia.org/w/api.php?action=query&prop=extracts&exintro&titles=Albert%20Einstein&format=json')
   r = requests.get('{0}{1}{2}'.format(SITE,LOOKUP,WIKIPEDIA_API))
+  resultado = r.json()
+  extract = resultado['query']['pages'][str(list(a['query']['pages'].values())[0]['pageid'])]['extract']
+  title = resultado['query']['pages'][str(list(a['query']['pages'].values())[0]['pageid'])]['title']
   
   
   
