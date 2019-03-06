@@ -2,8 +2,12 @@
 
 from flask import Flask, request, jsonify
 import requests
+import os
+
 
 app = Flask(__name__)
+app.SID = os.environ.get('SID')
+app.KEY = os.environ.get('KEY')
 
 @app.route("/")
 def hello():
@@ -15,7 +19,7 @@ def incomming():
   print(dir(request))
   print(request.url)
   print(request.form)
-  print(request.form.keys())
+  print(request.form['Body'])
   return 'Hola Wassap'
 
 
