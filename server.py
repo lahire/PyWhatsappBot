@@ -29,6 +29,16 @@ def body_process(cuerpo):
   """
   pass
 
+def wikipedia_lookup(lookup, lang='es'):
+  """
+  Lookups on wikipedia using the api
+  """
+  WIKIPEDIA_API="api.php?action=query&prop=extracts&exintro&titles=Albert%20Einstein&format=json"
+  r = requests.get('https://es.wikipedia.org/w/api.php?action=query&prop=extracts&exintro&titles=Albert%20Einstein&format=json')
+  
+  
+  
+
 @app.route("/")
 def hello():
   return "Para usar el bot:  Manda wassap a +1 415 523 8886 with code join yet-door.!"
