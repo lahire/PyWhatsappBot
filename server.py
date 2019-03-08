@@ -51,11 +51,14 @@ def wikipedia_lookup(lookup, lang='es'):
     pageid=list(resultado['query']['pages'].values())[0]['pageid'] #consigo el pageid
   except KeyError: #Si no se encuentra la busqueda, pageid no existe en la colección que devuelve la API
     print('KeyError!')
-    URL='https://es.wikipedia.org/w/index.php?search={0}&title=Especial%3ABuscar&profile=advanced&fulltext=1&advancedSearch-current=%7B%22namespaces%22%3A%5B100%2C0%5D%7D&ns100=1&ns0=1'
+    URL='https://es.wikipedia.org/w/index.php?title={0}&action=edit&redlink=1'.format(LOOKUP.replace('%20','_'))
     MENSAJE = {
-    'es':'No pude encontrar lo que buscaste...\n¿Está bien escrito?\nSi lo está, ¿por qué no pruebas creando el artículo?',
-    'en':''
+    'es':'🤔No pude encontrar lo que buscaste...\n¿Está bien escrito?\nSi lo está, ¿por qué no pruebas creando el artículo? :)\n {0}'.format(URL),
+    'en':"🤔Can't seem to find the thing you are looking for...Check spelling?\nAlso, if it's right, why not create the article? :D\n {0}".format(URL)
     }
+    print(MENSAJE[lang])
+    return MENSAJE[lang] #devuelvo el mensaje para escribir de vuelta
+
   extract = resultado['query']['pages'][str(pageid)]['extract'] #consigo el "extracto" del arti
   title = resultado['query']['pages'][str(pageid)]['title'] #consigo el título
   curid='?curid={0}'.format(pageid) #consigo el id de la pagina
