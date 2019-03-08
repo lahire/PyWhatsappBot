@@ -12,7 +12,7 @@ app = Flask(__name__)
 app.SID = os.environ.get('SID')
 app.KEY = os.environ.get('KEY')
 client = Client(app.SID,app.KEY)
-
+#test
 def welcome_user(lang='es'):
   """
   Welcomes the user
