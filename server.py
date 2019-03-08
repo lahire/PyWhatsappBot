@@ -30,6 +30,12 @@ def body_process(cuerpo):
   """
   pass
 
+def missing_result(lookup, lang='es'):
+  """
+  if a lookup returns fail
+  """
+
+
 def wikipedia_lookup(lookup, lang='es'):
   """
   Lookups on wikipedia using the api
@@ -41,6 +47,7 @@ def wikipedia_lookup(lookup, lang='es'):
   WIKIPEDIA_API_LOOKUP="w/api.php?action=query&prop=extracts&exintro&exchars={1}&explaintext&titles={0}&format=json".format(LOOKUP,EXCHARS) #La api en cuestion. ver paramentros en la doc
   #r = requests.get('https://es.wikipedia.org/w/api.php?action=query&prop=extracts&exintro&titles=Albert%20Einstein&format=json')
   r = requests.get('{0}{1}'.format(SITE,WIKIPEDIA_API_LOOKUP)) #hago el POST
+  i
   resultado = r.json() #paso a json el POST
   print(resultado) #console.log
   pageid=list(resultado['query']['pages'].values())[0]['pageid'] #consigo el pageid
