@@ -30,11 +30,6 @@ def body_process(cuerpo):
   """
   pass
 
-def missing_result(lookup, lang='es'):
-  """
-  if a lookup returns fail
-  """
-
 
 def wikipedia_lookup(lookup, lang='es'):
   """
@@ -47,10 +42,20 @@ def wikipedia_lookup(lookup, lang='es'):
   WIKIPEDIA_API_LOOKUP="w/api.php?action=query&prop=extracts&exintro&exchars={1}&explaintext&titles={0}&format=json".format(LOOKUP,EXCHARS) #La api en cuestion. ver paramentros en la doc
   #r = requests.get('https://es.wikipedia.org/w/api.php?action=query&prop=extracts&exintro&titles=Albert%20Einstein&format=json')
   r = requests.get('{0}{1}'.format(SITE,WIKIPEDIA_API_LOOKUP)) #hago el POST
-  i
+  if r.status_code != 200:
+    print('Connection lost with Wikipedia API!: Return code: {0}'.format(r.status_code))
+    return 'Connection lost with Wikipedia API!: Return code: {0}'.format(r.status_code)
   resultado = r.json() #paso a json el POST
   print(resultado) #console.log
-  pageid=list(resultado['query']['pages'].values())[0]['pageid'] #consigo el pageid
+  try:
+    pageid=list(resultado['query']['pages'].values())[0]['pageid'] #consigo el pageid
+  except KeyError: #Si no se encuentra la busqueda, pageid no existe en la colección que devuelve la API
+    print('KeyError!')
+    URL='https://es.wikipedia.org/w/index.php?search={0}&title=Especial%3ABuscar&profile=advanced&fulltext=1&advancedSearch-current=%7B%22namespaces%22%3A%5B100%2C0%5D%7D&ns100=1&ns0=1'
+    MENSAJE = {
+    'es':'No pude encontrar lo que buscaste...\n¿Está bien escrito?\nSi lo está, ¿por qué no pruebas creando el artículo?',
+    'en':''
+    }
   extract = resultado['query']['pages'][str(pageid)]['extract'] #consigo el "extracto" del arti
   title = resultado['query']['pages'][str(pageid)]['title'] #consigo el título
   curid='?curid={0}'.format(pageid) #consigo el id de la pagina
