@@ -13,6 +13,7 @@ app.SID = os.environ.get('SID')
 app.KEY = os.environ.get('KEY')
 client = Client(app.SID,app.KEY)
 #test
+Def
 def welcome_user(lang='es'):
   """
   Welcomes the user
