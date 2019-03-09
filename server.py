@@ -54,8 +54,8 @@ def wikipedia_lookup(lookup, lang='es'):
     print('KeyError!')
     URL='https://es.wikipedia.org/w/index.php?title={0}&action=edit&redlink=1'.format(LOOKUP.replace('%20','_'))
     MENSAJE = {
-    'es':'🤔No pude encontrar lo que buscaste...\n¿Está bien escrito?\nSi lo está, ¿por qué no pruebas creando el artículo? :)\n {0}'.format(URL),
-    'en':"🤔Can't seem to find the thing you are looking for...Check spelling?\nAlso, if it's right, why not create the article? :D\n {0}".format(URL)
+    'es':'🤔 \nNo pude encontrar lo que buscaste...\n¿Está bien escrito?\nSi lo está, ¿por qué no pruebas creando el artículo? :)\n {0}'.format(URL),
+    'en':"🤔 \nCan't seem to find the thing you are looking for...Check spelling?\nAlso, if it's right, why not create the article? :D\n {0}".format(URL)
     }
     print(MENSAJE[lang])
     return MENSAJE[lang] #devuelvo el mensaje para escribir de vuelta
