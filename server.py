@@ -13,7 +13,7 @@ app.SID = os.environ.get('SID')
 app.KEY = os.environ.get('KEY')
 client = Client(app.SID,app.KEY)
 #test
-Def
+
 def welcome_user(lang='es'):
   """
   Welcomes the user
@@ -64,14 +64,6 @@ def wikipedia_lookup(lookup, lang='es'):
   title = resultado['query']['pages'][str(pageid)]['title'] #consigo el título
   curid='?curid={0}'.format(pageid) #consigo el id de la pagina
   url='{0}{1}'.format(SITE,curid) #construyo la URL del arti usando el curid
-  if title.lower() == 'wikimedia argentina':
-    MENSAJE = {
-    'es':'😉 Podés saber más acá también: www.wikimedia.org.ar/\nY en Wiki: *{0}*\n{1}\nMás info acá: {2}'.format(title,extract,url), 
-    'en':'*{0}*\n{1}\nMore info here: {2}'.format(title, extract,url)  
-    } #el mensaje que se construye. Se podrian agregar más idiomas o modificar desde acá
-    print(MENSAJE[lang])
-    return MENSAJE[lang] #devuelvo el mensaje para escribir de vuelta
-    
   MENSAJE = {
   'es':'*{0}*\n{1}\nMás info acá: {2}'.format(title,extract,url), 
   'en':'*{0}*\n{1}\nMore info here: {2}'.format(title, extract,url)  
