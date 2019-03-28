@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 # WikiBOT
-VERSION=0.1
+VERSION="0.1.1"
 
 from flask import Flask, request, jsonify
 import requests
@@ -12,10 +12,7 @@ app = Flask(__name__)
 app.SID = os.environ.get('SID')
 app.KEY = os.environ.get('KEY')
 client = Client(app.SID,app.KEY)
-<<<<<<< HEAD
 #test
-=======
->>>>>>> a60ef96236cedddb25e0412c1b73b2d517b736a5
 
 def welcome_user(lang='es'):
   """
@@ -57,13 +54,8 @@ def wikipedia_lookup(lookup, lang='es'):
     print('KeyError!')
     URL='https://es.wikipedia.org/w/index.php?title={0}&action=edit&redlink=1'.format(LOOKUP.replace('%20','_'))
     MENSAJE = {
-<<<<<<< HEAD
     'es':'🤔 \nNo pude encontrar lo que buscaste...\n¿Está bien escrito?\nSi lo está, ¿por qué no pruebas creando el artículo? :)\n {0}'.format(URL),
     'en':"🤔 \nCan't seem to find the thing you are looking for...Check spelling?\nAlso, if it's right, why not create the article? :D\n {0}".format(URL)
-=======
-    'es':'🤔No pude encontrar lo que buscaste...\n¿Está bien escrito?\nSi lo está, ¿por qué no pruebas creando el artículo? :)\n {0}'.format(URL),
-    'en':"🤔Can't seem to find the thing you are looking for...Check spelling?\nAlso, if it's right, why not create the article? :D\n {0}".format(URL)
->>>>>>> a60ef96236cedddb25e0412c1b73b2d517b736a5
     }
     print(MENSAJE[lang])
     return MENSAJE[lang] #devuelvo el mensaje para escribir de vuelta
@@ -72,10 +64,6 @@ def wikipedia_lookup(lookup, lang='es'):
   title = resultado['query']['pages'][str(pageid)]['title'] #consigo el título
   curid='?curid={0}'.format(pageid) #consigo el id de la pagina
   url='{0}{1}'.format(SITE,curid) #construyo la URL del arti usando el curid
-<<<<<<< HEAD
-=======
-  
->>>>>>> a60ef96236cedddb25e0412c1b73b2d517b736a5
   MENSAJE = {
   'es':'*{0}*\n{1}\nMás info acá: {2}'.format(title,extract,url), 
   'en':'*{0}*\n{1}\nMore info here: {2}'.format(title, extract,url)  
