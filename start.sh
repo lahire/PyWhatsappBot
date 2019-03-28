@@ -17,6 +17,11 @@ if [ ! -f $VIRTUALENV/bin/pip ]; then
   curl --silent --show-error --retry 5 https://bootstrap.pypa.io/get-pip.py | $VIRTUALENV/bin/python
 fi
 
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> a60ef96236cedddb25e0412c1b73b2d517b736a5
 # Install the requirements
 $VIRTUALENV/bin/pip install -r requirements.txt
 
