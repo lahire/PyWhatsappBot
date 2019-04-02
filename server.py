@@ -1,16 +1,25 @@
 #!/usr/bin/python3
 # WikiBOT
-VERSION="0.1.1"
+VERSION="0.1.1toolforge"
 
 from flask import Flask, request, jsonify
 import requests
 import os
 from twilio.rest import Client
 from twilio.twiml.messaging_response import MessagingResponse
+import yaml
 
 app = Flask(__name__)
-app.SID = os.environ.get('SID')
-app.KEY = os.environ.get('KEY')
+#Changes for toolfoger
+__dir__ = os.path.dirname(__file__)
+
+app.config.update(
+    yaml.safe_load(open(os.path.join(__dir__, 'config.yaml'))))
+
+app.SID = app.config['SID']
+app.KEY = app.config['KEY']
+#app.SID = os.environ.get('SID')
+#app.KEY = os.environ.get('KEY')
 client = Client(app.SID,app.KEY)
 #test
 
