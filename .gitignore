@@ -1,0 +1,9 @@
+.glitch-assets
+.python_history
+pyvenv.cfg
+[Bb]in/
+[Ii]nclude/
+[Ll]ib
+[Ll]ib64
+.venv
+.Python 
